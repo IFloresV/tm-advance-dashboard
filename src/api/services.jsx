@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const url = "https://www.telematicsadvance.com/api";
-const key = "0480c335c087382c2eb2b41614e84c76414d6c91";
+const key = import.meta.env.VITE_KEYAPI;
 
 const Service = {
    Telematics: {

@@ -16,12 +16,13 @@ const SpeedGraphic = ({ units }) => {
          <h2 className="text-xl font-semibold mb-4">Velocidad Promedio</h2>
          <GaugeChart
             id="speed-gauge"
-            nrOfLevels={25}
+            nrOfLevels={10}
             percent={normalizedSpeed}
             textColor="#000000"
             needleColor="#345243"
             needleBaseColor="#345243"
             formatTextValue={(val) => `${avgSpeed.toFixed(1)} km/h`}
+            arcWidth={0.2}
          />
       </div>
    );

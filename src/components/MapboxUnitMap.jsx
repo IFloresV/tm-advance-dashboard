@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-mapboxgl.accessToken = "pk.eyJ1IjoiZmxvcmVzbWFwIiwiYSI6ImNtYTNoYWZ6aTB3ZmUyc3EyeXNucDU3dnIifQ.rfCZmItA1Dfv6PN4P20E0g";
+mapboxgl.accessToken = import.meta.env.VITE_KEYMAP;
 
 const mapStyles = {
    Streets: "mapbox://styles/mapbox/streets-v11",
