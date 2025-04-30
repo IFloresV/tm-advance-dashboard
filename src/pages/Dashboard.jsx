@@ -5,7 +5,7 @@ import { useAxios } from "@hooks/useAxios";
 import UnitsList from "@components/UnitsList";
 import MapboxUnitMap from "@components/MapboxUnitMap";
 import VehicleDetailModal from "@components/VehicleDetailModal";
-import StatusBar from "../components/StatusBar";
+import StatusGraphic from "../components/StatusGraphic";
 
 const Dashboard = () => {
    const [fetchUnitsList, dataUnitsList, errorUnitsList, loadingUnitsList, resetUnitsList] = useAxios(
@@ -65,7 +65,7 @@ const Dashboard = () => {
                   </div>
                   {dataUnitsList?.data?.units && (
                      <div className=" lg:w-1/2 h-1/2 lg:h-1/4">
-                        <StatusBar units={dataUnitsList.data.units} />
+                        <StatusGraphic units={dataUnitsList.data.units} />
                      </div>
                   )}
                </div>

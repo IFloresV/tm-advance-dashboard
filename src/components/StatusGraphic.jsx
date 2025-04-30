@@ -9,7 +9,7 @@ const generateColors = (count) => {
    return Array.from({ length: count }, (_, i) => baseColors[i % baseColors.length]);
 };
 
-const StatusBar = ({ units }) => {
+const StatusGraphic = ({ units }) => {
    const [chartType, setChartType] = useState("bar");
 
    const statusData = useMemo(() => {
@@ -82,4 +82,4 @@ const StatusBar = ({ units }) => {
    );
 };
 
-export default StatusBar;
+export default StatusGraphic;
