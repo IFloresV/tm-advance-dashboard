@@ -38,20 +38,20 @@ const StatusGraphic = ({ units }) => {
    }, [units]);
 
    return (
-      <div className="bg-white rounded-2xl shadow p-4 w-full">
+      <div className="bg-white dark:bg-dark-secondary rounded-2xl shadow p-4 w-full">
          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-semibold">Unidades Activas</h2>
+            <h2 className="text-xl font-semibold dark:text-dark-text">Unidades Activas</h2>
             <select
                value={chartType}
                onChange={(e) => setChartType(e.target.value)}
-               className="border border-gray-300 rounded px-2 py-1 text-sm"
+               className="border border-gray-300 dark:border-dark-border rounded px-2 py-1 text-sm dark:text-dark-text dark:bg-dark-secondary"
             >
                <option value="bar">Gráfico de Barras</option>
                <option value="pie">Gráfico de Pastel</option>
             </select>
          </div>
          {statusData.labels.length === 0 ? (
-            <p>No hay datos para mostrar</p>
+            <p className="dark:text-dark-muted">No hay datos para mostrar</p>
          ) : chartType === "bar" ? (
             <div className="relative h-48">
                <Bar

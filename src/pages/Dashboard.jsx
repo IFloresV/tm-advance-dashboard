@@ -18,6 +18,7 @@ const Dashboard = () => {
    const handleSelect = (unit) => {
       setSelectedUnit(unit);
    };
+
    useEffect(() => {
       getUnitList();
    }, []);
@@ -27,8 +28,11 @@ const Dashboard = () => {
    };
 
    return (
-      <div className=" p-6">
-         <div className="bg-gray-100 rounded-2xl shadow-md h-full p-4">
+      <div className="bg-light-secondary dark:bg-dark-secondary p-2 min-h-screen flex flex-col">
+         <div
+            className="rounded-2xl shadow-md flex-1 p-6 bg-light-primary dark:bg-dark-primary
+          text-light-text dark:text-dark-text border dark:border-dark-border"
+         >
             {loadingUnitsList && <p>Cargando unidades...</p>}
             {dataUnitsList?.data && (
                <>
