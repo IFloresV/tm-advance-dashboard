@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 
-const UnitsList = ({ data, onSelect }) => {
+const UnitsList = ({ data, onSelect, selectedUnit, setShowModal }) => {
    const { units } = data;
    const [search, setSearch] = useState("");
+
+   const handleDetailClick = () => {
+      setShowModal(true);
+   };
 
    const filteredUnits = units.filter((unit) =>
       `${unit.label} ${unit.vin}`.toLowerCase().includes(search.toLowerCase()),
@@ -10,7 +14,7 @@ const UnitsList = ({ data, onSelect }) => {
 
    return (
       <div className="relative shadow-md rounded-lg max-h-[250px] overflow-hidden w-full">
-         <div className="p-2">
+         <div className="flex items-center gap-2 p-2">
             <input
                type="text"
                placeholder="Buscar unidad..."
@@ -18,6 +22,17 @@ const UnitsList = ({ data, onSelect }) => {
                onChange={(e) => setSearch(e.target.value)}
                className="w-full px-3 py-1 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
+            <button
+               onClick={handleDetailClick}
+               disabled={!selectedUnit}
+               className={`px-3 py-1 text-sm rounded-lg ${
+                  selectedUnit
+                     ? "bg-blue-500 text-white hover:bg-blue-600"
+                     : "bg-gray-300 text-gray-600 cursor-not-allowed"
+               }`}
+            >
+               Detalle
+            </button>
          </div>
 
          <div className="overflow-y-auto max-h-72 overflow-x-auto">

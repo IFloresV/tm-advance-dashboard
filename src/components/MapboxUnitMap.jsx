@@ -11,16 +11,15 @@ const mapStyles = {
    Light: "mapbox://styles/mapbox/light-v10",
 };
 
-const MapboxUnitMap = ({ data }) => {
-   const { lat, lng, label, vin } = data;
-
+const MapboxUnitMap = ({ coordinates, label = "", vin = "" }) => {
    const mapContainer = useRef(null);
    const map = useRef(null);
    const markerRef = useRef(null);
    const [style, setStyle] = useState(mapStyles.Streets);
 
    useEffect(() => {
-      if (!lat || !lng) return;
+      if (!coordinates) return;
+      const { lat, lng } = coordinates;
 
       if (map.current) {
          map.current.setStyle(style);
@@ -72,7 +71,7 @@ const MapboxUnitMap = ({ data }) => {
     `),
          )
          .addTo(map.current);
-   }, [lat, lng, label, vin, style]);
+   }, [coordinates, style]);
 
    return (
       <div className="relative w-full h-64 rounded-lg overflow-hidden">

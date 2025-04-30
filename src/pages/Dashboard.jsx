@@ -4,6 +4,7 @@ import { useAxios } from "@hooks/useAxios";
 
 import UnitsList from "@components/UnitsList";
 import MapboxUnitMap from "@components/MapboxUnitMap";
+import VehicleDetailModal from "@components/VehicleDetailModal";
 
 const Dashboard = () => {
    const [fetchUnitsList, dataUnitsList, errorUnitsList, loadingUnitsList, resetUnitsList] = useAxios(
@@ -11,6 +12,8 @@ const Dashboard = () => {
    );
 
    const [selectedUnit, setSelectedUnit] = useState(null);
+   const [showModal, setShowModal] = useState(false);
+
    const handleSelect = (unit) => {
       console.log("unit", unit);
       setSelectedUnit(unit);
@@ -38,11 +41,20 @@ const Dashboard = () => {
             {dataUnitsList?.data && (
                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 h-full">
                   <div className="overflow-y-auto">
-                     <UnitsList data={dataUnitsList.data} onSelect={handleSelect} />
+                     <UnitsList
+                        data={dataUnitsList.data}
+                        onSelect={handleSelect}
+                        selectedUnit={selectedUnit}
+                        setShowModal={setShowModal}
+                     />
                   </div>
                   <div className="flex ">
                      {selectedUnit ? (
-                        <MapboxUnitMap data={selectedUnit} />
+                        <MapboxUnitMap
+                           coordinates={{ lat: selectedUnit.lat, lng: selectedUnit.lng }}
+                           label={selectedUnit.label}
+                           vin={selectedUnit.vin}
+                        />
                      ) : (
                         <div className="text-center text-gray-500 p-4">Selecciona una unidad para ver su ubicación</div>
                      )}
@@ -50,6 +62,7 @@ const Dashboard = () => {
                </div>
             )}
          </div>
+         {showModal && <VehicleDetailModal unit={selectedUnit} onClose={() => setShowModal(false)} />}
       </div>
    );
 };
