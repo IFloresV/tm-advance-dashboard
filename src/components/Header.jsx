@@ -2,6 +2,8 @@ import React from "react";
 import logo from "../assets/Logo.png";
 import title from "../assets/Title.png";
 
+import SwitchTheme from "./SwitchTheme";
+
 const Header = () => {
    return (
       <header
@@ -12,8 +14,16 @@ const Header = () => {
             <div>
                <img src={logo} alt="Logo" className="w-8 h-8" />
             </div>
-            <div className="hidden sm:block">
-               <img src={title} alt="Title" />
+
+            {/* Contenedor del título centrado */}
+            <div className="flex-1 flex justify-center">
+               <div className="hidden sm:block">
+                  <img src={title} alt="Title" />
+               </div>
+            </div>
+
+            <div className="ml-auto">
+               <SwitchTheme />
             </div>
          </nav>
       </header>

@@ -17,6 +17,26 @@ const MapboxUnitMap = ({ coordinates, label = "", vin = "" }) => {
    const markerRef = useRef(null);
    const [style, setStyle] = useState(mapStyles.Streets);
 
+   // Detect if the user prefers dark mode
+   const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+   // Set the initial style based on the system preference
+   useEffect(() => {
+      setStyle(isDarkMode ? mapStyles.Dark : mapStyles.Streets);
+
+      // Listen to changes in the system's color scheme preference
+      const handleThemeChange = (e) => {
+         setStyle(e.matches ? mapStyles.Dark : mapStyles.Streets);
+      };
+
+      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", handleThemeChange);
+
+      return () => {
+         // Clean up the event listener on unmount
+         window.matchMedia("(prefers-color-scheme: dark)").removeEventListener("change", handleThemeChange);
+      };
+   }, []);
+
    useEffect(() => {
       if (!coordinates) return;
       const { lat, lng } = coordinates;
@@ -29,11 +49,11 @@ const MapboxUnitMap = ({ coordinates, label = "", vin = "" }) => {
             markerRef.current.setLngLat([lng, lat]);
 
             const newPopup = new mapboxgl.Popup({ offset: 25 }).setHTML(`
-                    <div style="font-size: 14px; font-weight: 500; line-height: 1.4;">
-                        <div><strong>Unidad:</strong> ${label}</div>
-                        <div><strong>VIN:</strong> ${vin}</div>
-                    </div>
-   `);
+                <div style="font-size: 14px; font-weight: 500; line-height: 1.4;">
+                    <div><strong>Unidad:</strong> ${label}</div>
+                    <div><strong>VIN:</strong> ${vin}</div>
+                </div>
+            `);
 
             markerRef.current.setPopup(newPopup);
             markerRef.current.togglePopup(); // Opcional: para reabrirlo automáticamente
@@ -42,11 +62,11 @@ const MapboxUnitMap = ({ coordinates, label = "", vin = "" }) => {
                .setLngLat([lng, lat])
                .setPopup(
                   new mapboxgl.Popup({ offset: 25 }).setHTML(`
-      <div style="font-size: 14px; font-weight: 500; line-height: 1.4;">
-        <div><strong>Unidad:</strong> ${label}</div>
-        <div><strong>VIN:</strong> ${vin}</div>
-      </div>
-    `),
+                      <div style="font-size: 14px; font-weight: 500; line-height: 1.4;">
+                          <div><strong>Unidad:</strong> ${label}</div>
+                          <div><strong>VIN:</strong> ${vin}</div>
+                      </div>
+                  `),
                )
                .addTo(map.current);
          }
@@ -64,11 +84,11 @@ const MapboxUnitMap = ({ coordinates, label = "", vin = "" }) => {
          .setLngLat([lng, lat])
          .setPopup(
             new mapboxgl.Popup({ offset: 25 }).setHTML(`
-            <div style="font-size: 14px; font-weight: 500; line-height: 1.4;">
-                <div><strong>Unidad:</strong> ${label}</div>
-                <div><strong>VIN:</strong> ${vin}</div>
-            </div>
-    `),
+                <div style="font-size: 14px; font-weight: 500; line-height: 1.4;">
+                    <div><strong>Unidad:</strong> ${label}</div>
+                    <div><strong>VIN:</strong> ${vin}</div>
+                </div>
+            `),
          )
          .addTo(map.current);
    }, [coordinates, style]);

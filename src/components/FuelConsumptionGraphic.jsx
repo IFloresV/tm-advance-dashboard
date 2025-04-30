@@ -51,12 +51,12 @@ const FuelConsumptionGraphic = ({ units }) => {
    }, [units]);
 
    return (
-      <div className="bg-white rounded-2xl shadow p-4 w-full">
+      <div className="bg-white dark:bg-dark-secondary rounded-2xl shadow p-4 w-full">
          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-semibold">Consumo de Combustible por Tipo de Unidad</h2>
+            <h2 className="text-xl font-semibold dark:text-dark-text">Consumo de Combustible por Tipo de Unidad</h2>
          </div>
          {avgFuelConsumptionData.labels.length === 0 ? (
-            <p>No hay datos para mostrar</p>
+            <p className="dark:text-dark-muted">No hay datos para mostrar</p>
          ) : (
             <div className="relative h-48">
                <Line
