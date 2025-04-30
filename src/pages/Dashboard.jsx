@@ -6,6 +6,7 @@ import UnitsList from "@components/UnitsList";
 import MapboxUnitMap from "@components/MapboxUnitMap";
 import VehicleDetailModal from "@components/VehicleDetailModal";
 import StatusGraphic from "../components/StatusGraphic";
+import SpeedGraphic from "../components/SpeedGraphic";
 
 const Dashboard = () => {
    const [fetchUnitsList, dataUnitsList, errorUnitsList, loadingUnitsList, resetUnitsList] = useAxios(
@@ -64,8 +65,13 @@ const Dashboard = () => {
                      )}
                   </div>
                   {dataUnitsList?.data?.units && (
-                     <div className=" lg:w-1/2 h-1/2 lg:h-1/4">
-                        <StatusGraphic units={dataUnitsList.data.units} />
+                     <div className="flex flex-col lg:flex-row gap-4 mt-4">
+                        <div className="w-full lg:w-1/2">
+                           <StatusGraphic units={dataUnitsList.data.units} />
+                        </div>
+                        <div className="w-full lg:w-1/2">
+                           <SpeedGraphic units={dataUnitsList.data.units} />
+                        </div>
                      </div>
                   )}
                </div>
