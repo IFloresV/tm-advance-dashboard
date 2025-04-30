@@ -5,6 +5,7 @@ import { useAxios } from "@hooks/useAxios";
 import UnitsList from "@components/UnitsList";
 import MapboxUnitMap from "@components/MapboxUnitMap";
 import VehicleDetailModal from "@components/VehicleDetailModal";
+import StatusBar from "../components/StatusBar";
 
 const Dashboard = () => {
    const [fetchUnitsList, dataUnitsList, errorUnitsList, loadingUnitsList, resetUnitsList] = useAxios(
@@ -28,19 +29,22 @@ const Dashboard = () => {
 
    useEffect(() => {
       console.log("dataUnitsList", dataUnitsList);
+      if (dataUnitsList?.data) {
+         //  const speed = dataUnitsList.data.units.filter((unit) => unit.speed !== undefined).map((unit) => unit.speed);
+         //  console.log("speed", speed);
+         const filteredUnits = dataUnitsList.data.units
+            .filter((unit) => unit.speed !== null && unit.speed !== undefined)
+            .map((unit) => ({ unit_id: unit.unit_id, speed: unit.speed }));
+      }
    }, [dataUnitsList]);
 
-   useEffect(() => {
-      console.log("errorUnitsList", errorUnitsList);
-   }, [errorUnitsList]);
-
    return (
-      <div className="h-screen p-6">
-         <div className="bg-gray-100 rounded-2xl shadow-md h-[calc(100vh-64px)] p-4">
+      <div className=" p-6">
+         <div className="bg-gray-100 rounded-2xl shadow-md h-full p-4">
             {loadingUnitsList && <p>Cargando unidades...</p>}
             {dataUnitsList?.data && (
                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 h-full">
-                  <div className="overflow-y-auto">
+                  <div className="overflow-y-auto flex-1">
                      <UnitsList
                         data={dataUnitsList.data}
                         onSelect={handleSelect}
@@ -48,7 +52,7 @@ const Dashboard = () => {
                         setShowModal={setShowModal}
                      />
                   </div>
-                  <div className="flex ">
+                  <div className="relative flex flex-col lg:flex-row">
                      {selectedUnit ? (
                         <MapboxUnitMap
                            coordinates={{ lat: selectedUnit.lat, lng: selectedUnit.lng }}
@@ -59,9 +63,15 @@ const Dashboard = () => {
                         <div className="text-center text-gray-500 p-4">Selecciona una unidad para ver su ubicación</div>
                      )}
                   </div>
+                  {dataUnitsList?.data?.units && (
+                     <div className=" lg:w-1/2 h-1/2 lg:h-1/4">
+                        <StatusBar units={dataUnitsList.data.units} />
+                     </div>
+                  )}
                </div>
             )}
          </div>
+
          {showModal && <VehicleDetailModal unit={selectedUnit} onClose={() => setShowModal(false)} />}
       </div>
    );
