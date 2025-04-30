@@ -22,6 +22,9 @@ cd repositorio
 # Instala dependencias
 npm install
 
+# Variables de entorno
+agrear archivo (.env) dentro del directorio raiz del proyecto
+
 # Ejecuta el proyecto
 npm run dev
 ```
