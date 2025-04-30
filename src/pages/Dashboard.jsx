@@ -3,12 +3,18 @@ import Service from "@api/services";
 import { useAxios } from "@hooks/useAxios";
 
 import UnitsList from "@components/UnitsList";
+import MapboxUnitMap from "@components/MapboxUnitMap";
 
 const Dashboard = () => {
    const [fetchUnitsList, dataUnitsList, errorUnitsList, loadingUnitsList, resetUnitsList] = useAxios(
       Service.Telematics.UnitsList,
    );
 
+   const [selectedUnit, setSelectedUnit] = useState(null);
+   const handleSelect = (unit) => {
+      console.log("unit", unit);
+      setSelectedUnit(unit);
+   };
    useEffect(() => {
       getUnitList();
    }, []);
@@ -26,14 +32,21 @@ const Dashboard = () => {
    }, [errorUnitsList]);
 
    return (
-      <div className="h-screen p-4">
+      <div className="h-screen p-6">
          <div className="bg-gray-100 rounded-2xl shadow-md h-[calc(100vh-64px)] p-4">
             {loadingUnitsList && <p>Cargando unidades...</p>}
-            {errorUnitsList && <p className="text-red-500">Error: {errorUnitsList}</p>}
-            {dataUnitsList && (
-               <div className="h-full overflow-y-auto">
-                  <h2 className="text-2xl font-bold mb-4">Lista de Unidades</h2>
-                  <UnitsList data={dataUnitsList.data} />
+            {dataUnitsList?.data && (
+               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 h-full">
+                  <div className="overflow-y-auto">
+                     <UnitsList data={dataUnitsList.data} onSelect={handleSelect} />
+                  </div>
+                  <div className="flex ">
+                     {selectedUnit ? (
+                        <MapboxUnitMap data={selectedUnit} />
+                     ) : (
+                        <div className="text-center text-gray-500 p-4">Selecciona una unidad para ver su ubicación</div>
+                     )}
+                  </div>
                </div>
             )}
          </div>

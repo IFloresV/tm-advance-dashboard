@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const UnitsList = ({ data }) => {
+const UnitsList = ({ data, onSelect }) => {
    const { units } = data;
    const [search, setSearch] = useState("");
 
@@ -9,7 +9,7 @@ const UnitsList = ({ data }) => {
    );
 
    return (
-      <div className="relative shadow-md rounded-lg max-h-[350px] overflow-hidden w-full">
+      <div className="relative shadow-md rounded-lg max-h-[250px] overflow-hidden w-full">
          <div className="p-2">
             <input
                type="text"
@@ -32,7 +32,8 @@ const UnitsList = ({ data }) => {
                   {filteredUnits.map((unit) => (
                      <tr
                         key={unit.unit_id}
-                        className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                        onClick={() => onSelect(unit)}
+                        className="cursor-pointer bg-white border-b hover:bg-gray-100"
                      >
                         <th
                            scope="row"
