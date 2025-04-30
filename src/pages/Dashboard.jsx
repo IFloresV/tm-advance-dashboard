@@ -10,9 +10,7 @@ import SpeedGraphic from "../components/SpeedGraphic";
 import FuelConsumptionGraphic from "../components/FuelConsumptionGraphic";
 
 const Dashboard = () => {
-   const [fetchUnitsList, dataUnitsList, errorUnitsList, loadingUnitsList, resetUnitsList] = useAxios(
-      Service.Telematics.UnitsList,
-   );
+   const [fetchUnitsList, dataUnitsList, , loadingUnitsList] = useAxios(Service.Telematics.UnitsList);
 
    const [selectedUnit, setSelectedUnit] = useState(null);
    const [showModal, setShowModal] = useState(false);
@@ -61,10 +59,10 @@ const Dashboard = () => {
                   {dataUnitsList?.data?.units && (
                      <div className="flex flex-col lg:flex-row gap-4 mt-4">
                         <div className="w-full lg:w-1/3">
-                           <StatusGraphic units={dataUnitsList.data.units} />
+                           <SpeedGraphic speed={selectedUnit?.speed} />
                         </div>
                         <div className="w-full lg:w-1/3">
-                           <SpeedGraphic units={dataUnitsList.data.units} />
+                           <StatusGraphic units={dataUnitsList.data.units} />
                         </div>
                         <div className="w-full lg:w-1/3">
                            <FuelConsumptionGraphic units={dataUnitsList.data.units} />
