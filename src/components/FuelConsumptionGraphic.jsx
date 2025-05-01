@@ -58,7 +58,7 @@ const FuelConsumptionGraphic = ({ units }) => {
          {avgFuelConsumptionData.labels.length === 0 ? (
             <p className="dark:text-dark-muted">No hay datos para mostrar</p>
          ) : (
-            <div className="relative h-48">
+            <div className="relative h-56">
                <Line
                   data={avgFuelConsumptionData}
                   options={{

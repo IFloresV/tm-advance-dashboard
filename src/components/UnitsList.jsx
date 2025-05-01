@@ -31,7 +31,7 @@ const UnitsList = ({ data, onSelect, selectedUnit, setShowModal }) => {
                      : "bg-gray-300 text-gray-600 cursor-not-allowed"
                }`}
             >
-               Detalle
+               Info
             </button>
          </div>
 
