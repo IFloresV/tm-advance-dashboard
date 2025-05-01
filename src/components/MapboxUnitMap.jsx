@@ -17,26 +17,6 @@ const MapboxUnitMap = ({ coordinates, label = "", vin = "" }) => {
    const markerRef = useRef(null);
    const [style, setStyle] = useState(mapStyles.Streets);
 
-   // Detect if the user prefers dark mode
-   const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-   // Set the initial style based on the system preference
-   useEffect(() => {
-      setStyle(isDarkMode ? mapStyles.Dark : mapStyles.Streets);
-
-      // Listen to changes in the system's color scheme preference
-      const handleThemeChange = (e) => {
-         setStyle(e.matches ? mapStyles.Dark : mapStyles.Streets);
-      };
-
-      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", handleThemeChange);
-
-      return () => {
-         // Clean up the event listener on unmount
-         window.matchMedia("(prefers-color-scheme: dark)").removeEventListener("change", handleThemeChange);
-      };
-   }, []);
-
    useEffect(() => {
       if (!coordinates) return;
       const { lat, lng } = coordinates;
@@ -95,7 +75,6 @@ const MapboxUnitMap = ({ coordinates, label = "", vin = "" }) => {
 
    return (
       <div className="relative w-full h-64 rounded-lg overflow-hidden">
-         {/* Selector superpuesto con botones */}
          <div className="absolute bottom-2 left-2 bg-white bg-opacity-80 p-2 rounded shadow z-10">
             <div className="flex space-x-2">
                {Object.entries(mapStyles).map(([name, url]) => (

@@ -65,7 +65,7 @@ const StatusGraphic = ({ units }) => {
                />
             </div>
          ) : (
-            <div className="relative h-48">
+            <div className="relative h-56">
                <Pie
                   data={statusData}
                   options={{
