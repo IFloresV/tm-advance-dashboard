@@ -82,7 +82,7 @@ const MapboxUnitMap = ({ coordinates, label = "", vin = "" }) => {
                      key={name}
                      onClick={() => setStyle(url)}
                      className={`px-2 py-1 text-xs rounded ${
-                        style === url ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-800"
+                        style === url ? "bg-green-400 text-white" : "bg-gray-200 text-gray-800"
                      }`}
                   >
                      {name}

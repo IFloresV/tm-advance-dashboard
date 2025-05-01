@@ -1,5 +1,3 @@
-// utils/vehicleUtils.js
-
 export const obtenerEstadoVehiculo = (unit) => {
    const mantenimiento = necesitaMantenimiento(unit);
    const consumo = necesitaRevisionConsumo(unit);
