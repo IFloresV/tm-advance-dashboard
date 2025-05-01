@@ -20,14 +20,14 @@ const UnitsList = ({ data, onSelect, selectedUnit, setShowModal }) => {
                placeholder="Buscar unidad..."
                value={search}
                onChange={(e) => setSearch(e.target.value)}
-               className="w-full px-3 py-1 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-dark-secondary dark:border-dark-border dark:text-dark-text"
+               className="w-full px-3 py-1 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-dark-secondary dark:border-dark-border dark:text-dark-text"
             />
             <button
                onClick={handleDetailClick}
                disabled={!selectedUnit}
                className={`px-3 py-1 text-sm rounded-lg ${
                   selectedUnit
-                     ? "bg-blue-500 text-white hover:bg-blue-600"
+                     ? "bg-green-400 text-white hover:bg-green-600"
                      : "bg-gray-300 text-gray-600 cursor-not-allowed"
                }`}
             >
@@ -65,7 +65,7 @@ const UnitsList = ({ data, onSelect, selectedUnit, setShowModal }) => {
                            <div className="flex items-center">
                               <div
                                  className={`h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full me-1 ${
-                                    unit.state.name === "driving" ? "bg-green-500" : "bg-red-500"
+                                    unit.state.name === "driving" ? "bg-green-400" : "bg-red-500"
                                  }`}
                               ></div>
                               <span className="text-[11px] sm:text-sm">{unit.state.name}</span>
